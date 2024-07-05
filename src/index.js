@@ -5,7 +5,7 @@ const app = require('./api');
 const PORT = process.env.PORT || 3000;
 
 //Quiz Scraper 4pm Every Friday
-cron.schedule('0 0 * * 6', () => {
+cron.schedule('0 16 * * 5', () => {
   console.log('Running quiz scraper.');
   runScraper().catch(console.error);
 });
