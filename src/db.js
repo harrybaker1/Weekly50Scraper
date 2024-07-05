@@ -39,7 +39,7 @@ async function saveToDatabase(quizData) {
 
   function getQuizzes() {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT DISTINCT quiz_number FROM questions', (error, results) => {
+      connection.query('SELECT * FROM quizzes', (error, results) => {
         if (error) {
           return reject(error);
         }
