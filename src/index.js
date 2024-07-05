@@ -4,13 +4,25 @@ const app = require('./api');
 
 const PORT = process.env.PORT || 3000;
 
-//Quiz Scraper 4pm Every Friday
+// Function to run the scraper and handle errors
+const initialScraper = async () => {
+  try {
+    console.log('Running quiz scraper on startup.');
+    await runScraper();
+  } catch (error) {
+    console.error('Error running scraper on startup:', error);
+  }
+};
+
+// Quiz Scraper 4pm Every Friday
 cron.schedule('0 16 * * 5', () => {
   console.log('Running quiz scraper.');
   runScraper().catch(console.error);
 });
 
-//API
+initialScraper();
+
+// API
 app.listen(PORT, () => {
-  console.log('Server is running on port 3000.');
+  console.log(`Server is running on port ${PORT}.`);
 });
