@@ -3,7 +3,7 @@ const { getQuizzes, getQuiz } = require('./db');
 
 const app = express();
 
-app.get('/quizzes', async (req, res) => {
+app.get('/api/quizzes', async (req, res) => {
   try {
     const quizzes = await getQuizzes();
     res.status(200).json(quizzes);
@@ -13,7 +13,7 @@ app.get('/quizzes', async (req, res) => {
   }
 });
 
-app.get('/quiz/:quizNumber', async (req, res) => {
+app.get('/api/quiz/:quizNumber', async (req, res) => {
   const quizNumber = req.params.quizNumber;
   if (isNaN(quizNumber)) {
     return res.status(400).json({ error: 'Invalid quiz number format' });
