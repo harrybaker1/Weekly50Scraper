@@ -3,7 +3,18 @@ const { getQuizzes, getQuiz } = require('./db');
 
 const app = express();
 
-app.get('/api/quizzes', async (req, res) => {
+const QUIZ_API_KEY = '32004-FRXNY-49352-KFOWL';
+
+const checkApiKey = (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  if (apiKey && apiKey === QUIZ_API_KEY) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+};
+
+app.get('/api/quizzes', checkApiKey, async (req, res) => {
   try {
     const quizzes = await getQuizzes();
     res.status(200).json(quizzes);
@@ -13,7 +24,7 @@ app.get('/api/quizzes', async (req, res) => {
   }
 });
 
-app.get('/api/quiz/:quizNumber', async (req, res) => {
+app.get('/api/quiz/:quizNumber', checkApiKey, async (req, res) => {
   const quizNumber = req.params.quizNumber;
   if (isNaN(quizNumber)) {
     return res.status(400).json({ error: 'Invalid quiz number format' });

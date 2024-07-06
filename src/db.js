@@ -39,14 +39,14 @@ async function saveToDatabase(quizData) {
 
   function getQuizzes() {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM quizzes', (error, results) => {
+      connection.query('SELECT quiz_number, DATE_FORMAT(quiz_date, "%d/%m/%Y") AS formatted_date FROM quizzes', (error, results) => {
         if (error) {
           return reject(error);
         }
         resolve(results);
       });
     });
-  }
+  }  
 
 function getQuiz(quizNumber) {
     return new Promise((resolve, reject) => {
