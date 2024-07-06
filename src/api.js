@@ -1,7 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const { getQuizzes, getQuiz } = require('./db');
 
 const app = express();
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 
 const QUIZ_API_KEY = '32004-FRXNY-49352-KFOWL';
 
